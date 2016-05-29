@@ -5,7 +5,9 @@
     <string name="true_button">True</string>
     <string name="false_button">False</string>
     <string name="prev_button">Prev</string>
+    <string name="prevButton_contentDescription">previous question</string>
     <string name="next_button">Next</string>
+    <string name="nextButton_contentDescription">next question</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
     <string name="menu_settings">Settings</string>
