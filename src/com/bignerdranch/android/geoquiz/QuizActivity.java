@@ -14,6 +14,7 @@ public class QuizActivity extends ActionBarActivity {
 	
 	private Button mTrueButton;
 	private Button mFalseButton;
+	private Button mPrevButton;
 	private Button mNextButton;
 	private TextView mQuestionTextView;
 	
@@ -76,6 +77,16 @@ public class QuizActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				checkAnswer(false);
+			}
+		});
+        
+        mPrevButton = (Button)findViewById(R.id.prev_button);
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mCurrentIndex = (mCurrentIndex - 1 + mQuestionBank.length) % mQuestionBank.length;
+				updateQuestion();
 			}
 		});
         
