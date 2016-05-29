@@ -31,6 +31,20 @@ public class QuizActivity extends ActionBarActivity {
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
 		mQuestionTextView.setText(question);
 	}
+	
+	private void checkAnswer(boolean userPressedTrue) {
+		boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
+		
+		int messageResId = 0;
+		
+		if(userPressedTrue == answerIsTrue) {
+			messageResId = R.string.correct_toast;
+		} else {
+			messageResId = R.string.incorrect_toast;
+		}
+		
+		Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +58,7 @@ public class QuizActivity extends ActionBarActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(QuizActivity.this,
-						R.string.incorrect_toast,
-						Toast.LENGTH_SHORT).show();
+				checkAnswer(true);
 			}
 		});
         
@@ -56,10 +67,7 @@ public class QuizActivity extends ActionBarActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Toast.makeText(QuizActivity.this,
-						R.string.correct_toast,
-						Toast.LENGTH_SHORT).show();
+				checkAnswer(false);
 			}
 		});
         
