@@ -32,6 +32,8 @@ public class QuizActivity extends ActionBarActivity {
 	private int mCurrentIndex = 0;
 	
 	private void updateQuestion() {
+		//Log.d(TAG, "Updating question text for question #" + mCurrentIndex,
+		//		new Exception());
 		int question = mQuestionBank[mCurrentIndex].getQuestion();
 		mQuestionTextView.setText(question);
 	}
