@@ -14,7 +14,10 @@ public class CheatActivity extends Activity {
 	public static final String EXTRA_ANSWER_SHOWN = 
 			"com.bignerdranch.android.geoquiz.answer_shown";
 	
+	private static final String ANSWER_SHOWN = "AnswerHasShown";
+	
 	private boolean mAnswerIsTrue;
+	private boolean mAnswerIsShown;
 	
 	private TextView mAnswerTextView;
 	private Button mShowAnswer;
@@ -30,9 +33,10 @@ public class CheatActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cheat);
 		
-		// Answer will not be shown until the user
-		// presses the button
-		setAnswerShownResult(false);
+		if(savedInstanceState != null) {
+			mAnswerIsShown = savedInstanceState.getBoolean(ANSWER_SHOWN, false);
+		}
+		setAnswerShownResult(mAnswerIsShown);
 		
 		mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 		mAnswerTextView = (TextView)findViewById(R.id.answerTextView);
@@ -47,8 +51,15 @@ public class CheatActivity extends Activity {
 					mAnswerTextView.setText(R.string.false_button);
 				}
 				setAnswerShownResult(true);
+				mAnswerIsShown = true;
 			}
 		});
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putBoolean(ANSWER_SHOWN, mAnswerIsShown);
 	}
 
 }
