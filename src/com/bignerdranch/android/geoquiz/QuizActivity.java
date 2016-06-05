@@ -16,6 +16,7 @@ public class QuizActivity extends ActionBarActivity {
 	
 	private static final String TAG = "QuizActivity";
 	private static final String KEY_INDEX = "index";
+	private static final String IS_CHEATER = "IsCheater";
 	
 	private Button mTrueButton;
 	private Button mFalseButton;
@@ -114,6 +115,7 @@ public class QuizActivity extends ActionBarActivity {
         
         if(savedInstanceState != null) {
         	mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+        	mIsCheater = savedInstanceState.getBoolean(IS_CHEATER, false);
         }
         
         mCheatButton = (Button)findViewById(R.id.cheat_button);
@@ -136,6 +138,7 @@ public class QuizActivity extends ActionBarActivity {
     	super.onSaveInstanceState(savedInstanceState);
     	Log.i(TAG, "onSaveInstance");
     	savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    	savedInstanceState.putBoolean(IS_CHEATER, mIsCheater);
     }
 
     @Override
