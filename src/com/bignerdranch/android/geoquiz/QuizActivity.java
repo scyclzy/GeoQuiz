@@ -34,7 +34,7 @@ public class QuizActivity extends ActionBarActivity {
 	
 	private int mCurrentIndex = 0;
 	
-	private boolean mIsCheater;
+	private boolean[] mIsCheater = new boolean[mQuestionBank.length];
 	
 	private void updateQuestion() {
 		//Log.d(TAG, "Updating question text for question #" + mCurrentIndex,
@@ -48,7 +48,7 @@ public class QuizActivity extends ActionBarActivity {
 		
 		int messageResId = 0;
 		
-		if(mIsCheater) {
+		if(mIsCheater[mCurrentIndex]) {
 			messageResId = R.string.judgment_toast;
 		} else {		
 			if (userPressedTrue == answerIsTrue) {
@@ -66,7 +66,7 @@ public class QuizActivity extends ActionBarActivity {
 		if (data == null) {
 			return;
 		}
-		mIsCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+		mIsCheater[mCurrentIndex] = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
 	}
 
     @Override
@@ -108,14 +108,13 @@ public class QuizActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
-				mIsCheater = false;
 				updateQuestion();
 			}
 		});
         
         if(savedInstanceState != null) {
         	mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-        	mIsCheater = savedInstanceState.getBoolean(IS_CHEATER, false);
+        	mIsCheater = savedInstanceState.getBooleanArray(IS_CHEATER);
         }
         
         mCheatButton = (Button)findViewById(R.id.cheat_button);
@@ -138,7 +137,7 @@ public class QuizActivity extends ActionBarActivity {
     	super.onSaveInstanceState(savedInstanceState);
     	Log.i(TAG, "onSaveInstance");
     	savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
-    	savedInstanceState.putBoolean(IS_CHEATER, mIsCheater);
+    	savedInstanceState.putBooleanArray(IS_CHEATER, mIsCheater);
     }
 
     @Override
